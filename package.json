@@ -1,0 +1,11 @@
+{
+  "name": "ghostkey",
+  "private": true,
+  "description": "You migrated. Your old key didn't. Find and kill residual ECDSA authority after a 7702 / post-quantum migration.",
+  "license": "MIT",
+  "packageManager": "pnpm@10.19.0",
+  "scripts": {
+    "contracts:build": "cd contracts && forge build",
+    "contracts:test": "cd contracts && forge test"
+  }
+}
