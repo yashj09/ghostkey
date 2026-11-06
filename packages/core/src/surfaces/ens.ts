@@ -159,7 +159,7 @@ export const detectEnsRoles: Detector = async (ctx) => {
           severity: "exposed",
           title: `Old key owns ${name} (ENSv2)`,
           detail: `The ENSv2 name token for ${name} sits with the old key: it can transfer the name or change its registry settings.`,
-          assets: [{ kind: "ens-name", address: MAINNET.ens.ethRegistry, symbol: name, amount: 1n, decimals: 0, note: `ENSv2 registry owner, tokenId ${s.tokenId}` }],
+          assets: [{ kind: "ens-name", address: MAINNET.ens.ethRegistry, symbol: name, amount: 1n, decimals: 0, note: "ENSv2 registry owner" }],
           usdAtRisk: 0,
           fixable: true,
           fix: "Transfer the name token to the post-quantum account (registry roles move with it).",

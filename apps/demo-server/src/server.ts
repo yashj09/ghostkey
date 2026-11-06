@@ -1,6 +1,6 @@
 // GhostKey live-demo server. LOCAL ONLY: binds 127.0.0.1, holds demo keys for a throwaway anvil fork.
 import { createServer } from "node:http";
-import { DEMO_STEPS, type DemoStepId } from "@ghostkey/core/demo-api";
+import { DEMO_STEPS, toWire, type DemoStepId } from "@ghostkey/core/demo-api";
 import { Hub, loadEnv, startAnvil } from "./infra.js";
 import { createDemo } from "./steps.js";
 
@@ -25,6 +25,10 @@ const server = createServer(async (req, res) => {
   try {
     if (req.method === "GET" && path === "/stream") return hub.attach(res);
     if (req.method === "GET" && path === "/health") return void res.end("ok");
+    if (req.method === "GET" && path === "/state") {
+      res.writeHead(200, { "content-type": "application/json" });
+      return void res.end(toWire({ ...hub.state, rpcUrl: anvil.rpcUrl }));
+    }
     if (req.method === "POST" && path === "/reset") {
       await demo.reset();
       return void res.end("ok");
