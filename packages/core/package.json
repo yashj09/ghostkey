@@ -14,7 +14,8 @@
   "scripts": {
     "gen": "tsx scripts/gen-artifacts.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "census": "tsx scripts/census.ts"
   },
   "dependencies": {
     "viem": "^2.57.16"

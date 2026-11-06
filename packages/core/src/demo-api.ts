@@ -21,7 +21,7 @@ export type DemoLevel = "info" | "success" | "danger" | "warn";
 export interface DemoEvent {
   id: number;
   ts: number;
-  step: DemoStepId | "system";
+  step: DemoStepId | "system" | "sim";
   level: DemoLevel;
   msg: string;
   tx?: Hex;
@@ -69,6 +69,44 @@ export interface DemoState {
   attacks?: AttackSummary[];
   /** total USD the attacker walked away with in the latest attack round */
   attackerUsd?: number;
+  /** Q-day simulator for any address */
+  sim?: SimView;
+}
+
+// ---- Q-day simulator (any address, live mainnet fork) ----
+export type SimStatus = "idle" | "queued" | "forking" | "scanning" | "attacking" | "rewinding" | "fixing" | "reattacking" | "done" | "error";
+
+export interface SimActionView {
+  surface: string;
+  label: string;
+  ok: boolean;
+  usdTaken: number;
+  detail: string;
+  tx?: Hex;
+}
+
+export interface SimView {
+  status: SimStatus;
+  target?: string;
+  address?: Address;
+  name?: string;
+  forkBlock?: number;
+  startedAt?: number;
+  /** USD in the target / its Safes / attacker / GhostKey vault, updated after every action */
+  holdings?: { targetUsd: number; safesUsd: number; attackerUsd: number; vaultUsd: number; ens: Record<string, Address | null> };
+  /** the target's value at the start (for "drained x%" bars) */
+  startUsd?: number;
+  before?: ResidualReport;
+  after?: ResidualReport;
+  attack: SimActionView[];
+  reattack: SimActionView[];
+  fixSteps: string[];
+  stolenUsd?: number;
+  stolenAfterUsd?: number;
+  remaining?: string[];
+  error?: string;
+  /** addresses already warmed on this fork (instant-ish) */
+  warm: string[];
 }
 
 // ---- JSON transport with bigint support (reports contain bigints) ----
