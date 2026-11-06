@@ -2,7 +2,7 @@
 
 **You migrated. Your old key didn't.**
 
-🔗 **Live app:** [ghostkey-eight.vercel.app](https://ghostkey-eight.vercel.app) (Scan runs in your browser against your RPC) · IPFS + ENSv2: [yashj09.eth.link](https://yashj09.eth.link) (CID `bafybeih37sxs3mzpgh3sr4vacikyy733yzulcv2lf4u5sllxspppg3xhtu`, content hash on an **ENSv2 PermissionedResolver**)
+🔗 **Live app:** [ghostkey-eight.vercel.app](https://ghostkey-eight.vercel.app) (Scan runs in your browser against your RPC) · IPFS + ENSv2: [yashj09.eth.limo](https://yashj09.eth.limo) / [.eth.link](https://yashj09.eth.link) (CID `bafybeih37sxs3mzpgh3sr4vacikyy733yzulcv2lf4u5sllxspppg3xhtu`, content hash on an **ENSv2 PermissionedResolver**)
 
 EIP-7702 and EIP-8141 frame transactions *install code* on your account. They never switch the old ECDSA key off. So after you "upgrade" to a smart or post-quantum wallet, the key you thought you'd retired can still:
 
