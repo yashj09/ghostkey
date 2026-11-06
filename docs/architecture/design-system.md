@@ -1,5 +1,16 @@
 # Design system (web app)
 
+> **v2 (Fri 6 Nov, after "it feels static"):** the product is now led by the **Q-day simulator** and its **wiring diagram**.
+> - **The one memorable element.** The old ECDSA key sits on the left, with one wire per thing it still controls: tokens, each 1-of-1 Safe, each ENS name.
+>   - **Live:** a crimson `--wire`.
+>   - **Taken on Q-day:** dashed crimson, with the asset struck through.
+>   - **Cut by GhostKey:** dotted slate `--cut` with scissors, and the asset in teal `--secure`.
+>   - When every wire is cut, the key card greys out and reads "Still signs. Controls nothing."
+> - **Palette:** cool paper `oklch(.985 .004 250)` and ink `oklch(.19 .015 262)` (light by default, so it projects well), crimson for live authority, teal for secured, slate for cut. No gradients.
+> - **Type:** Geist, with the census figure set huge (tracking-tighter, tabular). Mono only for addresses and ENS names.
+> - **Removed:** all-caps eyebrows, middle-dot meta strings, arrows in buttons, the 8-tile n/a grid.
+
+
 Derived from the ui-ux-pro-max recommendations ("security / ops tool"), adapted to a **clean, minimal** brief that works on a **projector** and in both themes.
 
 ## Principles

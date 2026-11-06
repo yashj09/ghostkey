@@ -23,3 +23,9 @@
   - Docs: README with CROPS section, `FEEDBACK.md` (Uniswap/Permit2), `AI_USAGE.md`.
   - Deploy config: `vercel.json`, `pnpm web:pin` (Pinata → IPFS → ENS contenthash).
   - Verified: Reset followed by a full second run is identical ($41,249 → $41,248 stolen → $0). Light and dark modes both checked.
+- **Fri ~09:05:** user feedback: the guided demo "feels static, not demoable". Decision (ADR-004): keep the idea, make it live.
+- **Fri ~10:10:** Q-day simulator works on any address. It forks mainnet, drains every surface as the account's key, rewinds, migrates, re-attacks.
+  - vitalik.eth: $16.9k taken, then $0 after GhostKey. Its ENSv1 name stays open (it has to be moved in the ENS app).
+  - Reads go to a block-pinned upstream and txs to the fork, with presets pre-warmed at startup. vitalik.eth reaches Q-day in ~11 s.
+- **Fri ~10:40:** new Simulate tab with the live wiring diagram. The census script's first version silently priced everything at $0 (swallowed batch errors). It was rewritten to fail loudly and to price wallet-class delegates only.
+  - 1-hour sample: 5,670 authorities. 5,456 are bot farms; 214 are smart-wallet upgrades holding $336,782, all still movable by their old keys.
