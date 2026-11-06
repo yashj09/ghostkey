@@ -190,7 +190,7 @@ describe("scanAccount on the fork", () => {
     expect(owned.assets[0]!.symbol).toBe(name);
     const roles = ens1.find((f) => f.assets[0]!.address === getAddress(resolver))!;
     expect(roles.assets[0]!.symbol).toBe(name); // linked via ETHRegistry.getResolver(label)
-    expect(roles.assets[0]!.note).toBe("ROLE_SET_ADDRESS, ROLE_SET_ADDRESS_ADMIN");
+    expect(roles.assets[0]!.note).toBe("ROLE_SET_ADDRESS (+admin)");
     expect(roles.fixable).toBe(true);
 
     // Alice "migrates" the name only: transfer the token to a new account.

@@ -14,26 +14,37 @@ const erc721OwnerAbi = parseAbi(["function ownerOf(uint256 id) view returns (add
 const nameAbi = parseAbi(["function name(bytes32 node) view returns (string)"]);
 
 const R = ENS_ROLES.resolver;
-const ROLE_NAMES: [bigint, string][] = [
-  [R.ROLE_SET_ADDRESS, "ROLE_SET_ADDRESS"],
-  [R.ROLE_SET_TEXT, "ROLE_SET_TEXT"],
-  [R.ROLE_SET_CONTENTHASH, "ROLE_SET_CONTENTHASH"],
-  [R.ROLE_SET_ADDRESS_ADMIN, "ROLE_SET_ADDRESS_ADMIN"],
-  [R.ROLE_SET_TEXT << 128n, "ROLE_SET_TEXT_ADMIN"],
-  [R.ROLE_SET_CONTENTHASH << 128n, "ROLE_SET_CONTENTHASH_ADMIN"],
+/** PermissionedResolver roles (mainnet build, tag v2-mainnet-deployment-1): nybble index -> name. */
+const RESOLVER_ROLES: [nybble: number, name: string][] = [
+  [0, "ROLE_SET_ADDRESS"],
+  [4, "ROLE_SET_TEXT"],
+  [8, "ROLE_SET_CONTENTHASH"],
+  [12, "ROLE_SET_ABI"],
+  [16, "ROLE_SET_INTERFACE"],
+  [20, "ROLE_SET_NAME"],
+  [24, "ROLE_SET_DATA"],
+  [28, "ROLE_LINK"],
+  [120, "ROLE_CAN_NAME"],
+  [124, "ROLE_UPGRADE"],
 ];
 const LOW_128 = (1n << 128n) - 1n;
 
+/** Human-readable role list, e.g. ["ROLE_SET_ADDRESS (+admin)", "ROLE_UPGRADE (+admin)", "+20 reserved"]. */
 export function roleNames(bits: bigint): string[] {
   const out: string[] = [];
   let rest = bits;
-  for (const [bit, name] of ROLE_NAMES) {
-    if (bits & bit) {
-      out.push(name);
-      rest &= ~bit;
-    }
+  for (const [n, name] of RESOLVER_ROLES) {
+    const role = 1n << BigInt(n);
+    const admin = role << 128n;
+    if (!(bits & (role | admin))) continue;
+    out.push(bits & role ? (bits & admin ? `${name} (+admin)` : name) : `${name}_ADMIN`);
+    rest &= ~(role | admin);
   }
-  if (rest) out.push(`other roles 0x${rest.toString(16)}`);
+  if (rest) {
+    let count = 0; // distinct role slots, role and admin halves counted once
+    for (let i = 0n; i < 32n; i++) if (((rest >> (i * 4n)) | (rest >> (i * 4n + 128n))) & 0xfn) count++;
+    out.push(`+${count} reserved`);
+  }
   return out;
 }
 
