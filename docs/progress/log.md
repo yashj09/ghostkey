@@ -18,3 +18,8 @@
   - Act 2: scan finds $41,249 exposed; the old key steals $41,248 with the killswitch ON.
   - Act 3: an 11-call leanSphincs-s-signed batch (538k gas). Re-attack yields $0.
   - Canary strength raised to 44 bits: ~0.4 s to crack, ~240 MB of memory.
+- **Fri ~06:30:** the Scan tab runs `scanAccount` **in the browser** against the user's RPC.
+  - Real-world check: **vitalik.eth is EIP-7702-delegated on mainnet**, and its original ECDSA key still directly controls ~$16.6k plus the `vitalik.eth` ENSv1 name.
+  - Docs: README with CROPS section, `FEEDBACK.md` (Uniswap/Permit2), `AI_USAGE.md`.
+  - Deploy config: `vercel.json`, `pnpm web:pin` (Pinata → IPFS → ENS contenthash).
+  - Verified: Reset followed by a full second run is identical ($41,249 → $41,248 stolen → $0). Light and dark modes both checked.
