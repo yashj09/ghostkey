@@ -1,0 +1,26 @@
+{
+  "name": "@ghostkey/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./demo": "./src/demo/index.ts",
+    "./node": "./src/node/index.ts"
+  },
+  "scripts": {
+    "gen": "tsx scripts/gen-artifacts.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "viem": "^2.57.16"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}
