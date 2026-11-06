@@ -6,9 +6,11 @@
   "packageManager": "pnpm@10.19.0",
   "scripts": {
     "contracts:build": "cd contracts && forge build",
-    "contracts:test": "cd contracts && forge test",
+    "contracts:test": "cd contracts && set -a && . ../.env && set +a && forge test",
     "demo": "pnpm --parallel --filter @ghostkey/demo-server --filter @ghostkey/web run dev",
     "web:build": "pnpm --filter @ghostkey/web run build",
-    "test": "pnpm contracts:test && pnpm --filter @ghostkey/core test"
+    "test": "pnpm contracts:test && pnpm --filter @ghostkey/core test",
+    "tools:build": "cargo build --release --manifest-path tools/sphincs-signer/Cargo.toml && cargo build --release --manifest-path tools/bsgs/Cargo.toml",
+    "bootstrap": "pnpm install && pnpm tools:build && pnpm contracts:build"
   }
 }
