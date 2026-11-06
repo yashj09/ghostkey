@@ -49,8 +49,9 @@ export function useDemo() {
 
   const runStep = useCallback((step: DemoStepId) => post(`/step/${step}`), [post]);
   const reset = useCallback(() => post("/reset"), [post]);
+  const simulate = useCallback((target: string) => post(`/simulate?target=${encodeURIComponent(target)}`), [post]);
 
   const next: DemoStepId | undefined = state ? DEMO_STEPS.find((s) => !state.completed.includes(s)) : undefined;
 
-  return { state, events, conn, runStep, reset, next };
+  return { state, events, conn, runStep, reset, next, simulate };
 }

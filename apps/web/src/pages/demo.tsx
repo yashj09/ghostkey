@@ -82,7 +82,7 @@ export function DemoPage() {
       </section>
 
       <aside>
-        <div className="mb-2 text-xs font-medium tracking-wide text-muted-foreground uppercase">Live event log</div>
+        <div className="mb-2 text-sm font-medium text-muted-foreground">Event log</div>
         <EventLog events={events} />
       </aside>
     </div>

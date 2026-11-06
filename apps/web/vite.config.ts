@@ -12,6 +12,6 @@ export default defineConfig({
   base: "./",
   server: {
     // Local demo server (apps/demo-server) for the Live Demo cockpit
-    proxy: { "/api": "http://127.0.0.1:8787" },
+    proxy: { "/api": process.env.DEMO_API ?? "http://127.0.0.1:8787" },
   },
 });

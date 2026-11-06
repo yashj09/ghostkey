@@ -2,14 +2,14 @@ import { DEMO_STEP_META, DEMO_STEPS, type DemoStepId } from "@ghostkey/core/demo
 import { Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const ACTS: Record<1 | 2 | 3, string> = { 1: "Act 1 · The migration", 2: "Act 2 · Q-day", 3: "Act 3 · GhostKey" };
+const ACTS: Record<1 | 2 | 3, string> = { 1: "Act 1: the migration", 2: "Act 2: Q-day", 3: "Act 3: GhostKey" };
 
 export function Stepper({ completed, busy, next }: { completed: DemoStepId[]; busy: DemoStepId | null; next?: DemoStepId }) {
   return (
     <ol className="space-y-5">
       {([1, 2, 3] as const).map((act) => (
         <li key={act}>
-          <div className="mb-2 text-xs font-medium tracking-wide text-muted-foreground uppercase">{ACTS[act]}</div>
+          <div className="mb-2 text-sm font-medium text-muted-foreground">{ACTS[act]}</div>
           <ol className="space-y-1">
             {DEMO_STEPS.filter((s) => DEMO_STEP_META[s].act === act).map((s) => {
               const done = completed.includes(s);

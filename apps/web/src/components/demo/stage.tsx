@@ -64,7 +64,7 @@ export function Stage({ state, focus }: { state: DemoState; focus?: DemoStepId }
     <div className="space-y-5">
       {meta && (
         <div>
-          <div className="text-xs font-medium tracking-wide text-primary uppercase">Act {meta.act}</div>
+          <div className="text-sm font-medium text-primary">Act {meta.act}</div>
           <h2 className="text-2xl font-semibold tracking-tight lg:text-3xl">{meta.title}</h2>
           <p className="mt-1 max-w-prose text-muted-foreground">{meta.blurb}</p>
         </div>
