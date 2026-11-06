@@ -11,6 +11,7 @@
     "web:build": "pnpm --filter @ghostkey/web run build",
     "test": "pnpm contracts:test && pnpm --filter @ghostkey/core test",
     "tools:build": "cargo build --release --manifest-path tools/sphincs-signer/Cargo.toml && cargo build --release --manifest-path tools/bsgs/Cargo.toml",
-    "bootstrap": "pnpm install && pnpm tools:build && pnpm contracts:build"
+    "bootstrap": "pnpm install && pnpm tools:build && pnpm contracts:build",
+    "web:pin": "pnpm web:build && node scripts/pin-ipfs.mjs"
   }
 }
