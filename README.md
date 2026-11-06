@@ -2,6 +2,8 @@
 
 **You migrated. Your old key didn't.**
 
+🔗 **Live app:** [ghostkey-eight.vercel.app](https://ghostkey-eight.vercel.app) (Scan runs in your browser against your RPC) · IPFS/ENS mirror: *coming*
+
 EIP-7702 and EIP-8141 frame transactions *install code* on your account. They never switch the old ECDSA key off. So after you "upgrade" to a smart or post-quantum wallet, the key you thought you'd retired can still:
 
 | # | Surface | What the old key can still do | Can a wallet-level killswitch stop it? |
