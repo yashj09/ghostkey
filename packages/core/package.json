@@ -8,7 +8,8 @@
     ".": "./src/index.ts",
     "./demo": "./src/demo/index.ts",
     "./node": "./src/node/index.ts",
-    "./demo-api": "./src/demo-api.ts"
+    "./demo-api": "./src/demo-api.ts",
+    "./sim": "./src/sim/qday.ts"
   },
   "scripts": {
     "gen": "tsx scripts/gen-artifacts.ts",
