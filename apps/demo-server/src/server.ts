@@ -14,6 +14,13 @@ if (!forkUrl) {
   process.exit(1);
 }
 
+// Refuse to start (before touching anvil!) if another demo server already owns the port.
+const existing = await fetch(`http://127.0.0.1:${PORT}/api/health`).then((r) => r.ok, () => false);
+if (existing) {
+  console.error(`A GhostKey demo server is already running on http://127.0.0.1:${PORT}: use it, or stop it first (lsof -i :${PORT}).`);
+  process.exit(1);
+}
+
 const hub = new Hub();
 const anvil = await startAnvil({ forkUrl, forkBlock, port: ANVIL_PORT });
 const demo = await createDemo(hub, anvil.rpcUrl, forkBlock);
@@ -52,6 +59,12 @@ const server = createServer(async (req, res) => {
   }
 });
 
+server.on("error", (e: NodeJS.ErrnoException) => {
+  if (e.code === "EADDRINUSE") console.error(`Port ${PORT} is busy: another demo server is running? Stop it (lsof -i :${PORT}) or set DEMO_SERVER_PORT.`);
+  else console.error(e);
+  anvil.stop();
+  process.exit(1);
+});
 server.listen(PORT, "127.0.0.1", () => console.log(`GhostKey demo server on http://127.0.0.1:${PORT} (anvil ${anvil.rpcUrl}, fork block ${forkBlock})`));
 const shutdown = () => {
   anvil.stop();

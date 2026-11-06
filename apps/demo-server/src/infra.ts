@@ -30,7 +30,9 @@ export interface AnvilHandle {
 export async function startAnvil(opts: { forkUrl: string; forkBlock: number; port: number }): Promise<AnvilHandle> {
   const rpcUrl = `http://127.0.0.1:${opts.port}`;
   if (await rpcAlive(rpcUrl)) {
-    console.log(`[anvil] reusing fork already running on ${rpcUrl}`);
+    // A leftover fork from an earlier run holds dirty state (e.g. the ENS name is already registered): reset it.
+    await rpc(rpcUrl, "anvil_reset", [{ forking: { jsonRpcUrl: opts.forkUrl, blockNumber: opts.forkBlock } }]);
+    console.log(`[anvil] reset leftover fork on ${rpcUrl} to block ${opts.forkBlock}`);
     return { rpcUrl, stop: () => {} };
   }
   const proc: ChildProcess = spawn(
@@ -45,6 +47,13 @@ export async function startAnvil(opts: { forkUrl: string; forkBlock: number; por
   }
   proc.kill();
   throw new Error("anvil did not start (is foundry installed and MAINNET_RPC_URL valid?)");
+}
+
+async function rpc(url: string, method: string, params: unknown[]): Promise<unknown> {
+  const r = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }) });
+  const j = (await r.json()) as { result?: unknown; error?: { message: string } };
+  if (j.error) throw new Error(`${method}: ${j.error.message}`);
+  return j.result;
 }
 
 async function rpcAlive(url: string): Promise<boolean> {
